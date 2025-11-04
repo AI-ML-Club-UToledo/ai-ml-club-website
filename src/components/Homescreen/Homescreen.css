@@ -1,0 +1,53 @@
+.homescreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  padding: 2rem;
+  padding-bottom: 4rem;
+}
+
+.homescreen-text {
+  font-size: 4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  letter-spacing: 0.8rem;
+  margin: 0;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .homescreen {
+    min-height: calc(100vh - 100px);
+    padding: 2rem 1.5rem;
+  }
+  
+  .homescreen-text {
+    font-size: 2.5rem;
+    letter-spacing: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .homescreen-text {
+    font-size: 1.8rem;
+    letter-spacing: 0.2rem;
+  }
+}

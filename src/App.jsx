@@ -1,4 +1,5 @@
 import Header from './components/Header'
+import Homescreen from './components/Homescreen'
 import './App.css'
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
     <div className="app">
       <Header />
       <main>
-        {/* Main content will go here */}
+        <Homescreen />
       </main>
     </div>
   )

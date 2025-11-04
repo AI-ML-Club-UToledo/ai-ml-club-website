@@ -4,18 +4,11 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-}
-
 body {
   font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
+  margin: 0;
+  padding: 0;
   background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
   background-attachment: fixed;
-  min-height: 100vh;
-}
-
-#root {
   min-height: 100vh;
 }
