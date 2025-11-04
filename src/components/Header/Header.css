@@ -17,6 +17,18 @@
   align-items: center;
 }
 
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-logo-img {
+  height: 4rem;
+  width: auto;
+  object-fit: contain;
+}
+
 .header-logo {
   font-size: 1.75rem;
   font-weight: 700;
@@ -46,6 +58,10 @@
 @media (max-width: 768px) {
   .header {
     padding: 1rem 1.5rem;
+  }
+  
+  .header-logo-img {
+    height: 3rem;
   }
   
   .header-logo {

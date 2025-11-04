@@ -4,7 +4,10 @@ function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        <h1 className="header-logo">AI/ML Club</h1>
+        <div className="header-logo-container">
+          <img src="/logo.png" alt="AI/ML Club Logo" className="header-logo-img" />
+          <h1 className="header-logo">AI/ML Club</h1>
+        </div>
         <nav className="header-nav">
           <a href="#about">About</a>
           <a href="#events">Events</a>
