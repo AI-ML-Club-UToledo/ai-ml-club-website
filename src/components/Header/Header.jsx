@@ -6,7 +6,19 @@ function Header() {
       <div className="header-container">
         <div className="header-logo-container">
           <img src="/logo.png" alt="AI/ML Club Logo" className="header-logo-img" />
-          <h1 className="header-logo">AI/ML Club</h1>
+          <h1
+            className="header-logo"
+            onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+          >
+            AI/ML Club
+          </h1>
         </div>
         <nav className="header-nav">
           <a href="#about">About</a>

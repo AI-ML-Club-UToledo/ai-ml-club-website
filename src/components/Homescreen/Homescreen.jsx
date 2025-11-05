@@ -2,7 +2,7 @@ import './Homescreen.css'
 
 function Homescreen() {
   return (
-    <div className="homescreen">
+    <div id="home" className="homescreen">
       <h1 className="homescreen-text">Learn. Innovate. Build.</h1>
     </div>
   )
