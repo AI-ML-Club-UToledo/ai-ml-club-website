@@ -3,9 +3,11 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  min-height: calc(100vh - 100px);
+  height: 100vh;
   padding: 2rem;
   padding-bottom: 4rem;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .homescreen-text {
