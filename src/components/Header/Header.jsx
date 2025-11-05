@@ -21,10 +21,11 @@ function Header() {
           </h1>
         </div>
         <nav className="header-nav">
-          <a href="#about">About</a>
-          <a href="#events">Events</a>
-          <a href="#members">Members</a>
-          <a href="#contact">Contact</a>
+          <a href="#home" className="nav-btn home-nav-btn">Home</a>
+          <a href="#about" className="nav-btn">About</a>
+          <a href="#events" className="nav-btn">Events</a>
+          <a href="#members" className="nav-btn">Members</a>
+          <a href="#contact" className="nav-btn">Contact</a>
         </nav>
       </div>
     </header>

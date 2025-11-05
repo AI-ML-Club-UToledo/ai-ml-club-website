@@ -70,3 +70,71 @@
     letter-spacing: 0.2rem;
   }
 }
+
+/* --- Typewriter / Neon styling --- */
+.homescreen-text {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.homescreen-text .completed-word {
+  opacity: 0;
+  transition: opacity 420ms ease, text-shadow 420ms ease;
+  /* keep baseline shadow */
+  text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+/* completed words will appear (opacity transition) when inserted */
+.homescreen-text .completed-word {
+  opacity: 1;
+}
+
+.typing-word {
+  display: inline-block;
+  min-width: 0;
+  color: transparent; /* gradient from parent still visible via background-clip */
+  -webkit-background-clip: text;
+  background-clip: text;
+  vertical-align: bottom;
+  transition: text-shadow 200ms ease, opacity 300ms ease;
+}
+
+.typing-word.typing {
+  /* neon cyan/teal glow while typing */
+  text-shadow:
+    0 0 8px rgba(0,230,255,0.16),
+    0 0 18px rgba(0,170,255,0.10),
+    0 6px 30px rgba(0,0,0,0.45);
+}
+
+.typing-caret {
+  display: inline-block;
+  width: 0.12em;
+  height: 1.05em;
+  margin-left: 0.12rem;
+  vertical-align: bottom;
+  background: linear-gradient(90deg, rgba(168,255,255,0.95), rgba(80,220,255,0.95));
+  border-radius: 2px;
+  animation: blink-caret 1s step-end infinite;
+  box-shadow: 0 0 8px rgba(0,220,255,0.12);
+}
+
+@keyframes blink-caret {
+  50% { opacity: 0; }
+}
+
+/* final subtle fade-in for completed headline (if needed) */
+.homescreen-text.completed {
+  animation: headlineFadeIn 420ms ease forwards;
+}
+
+@keyframes headlineFadeIn {
+  from { opacity: 0.85; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .homescreen-text { gap: 0.75rem; }
+}
