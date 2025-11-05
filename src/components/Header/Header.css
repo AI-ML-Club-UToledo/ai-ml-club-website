@@ -1,9 +1,10 @@
 .header {
   width: 100%;
   padding: 1.5rem 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  /* make header transparent so the video shows through */
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
   position: sticky;
   top: 0;
   z-index: 100;
