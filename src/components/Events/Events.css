@@ -11,19 +11,11 @@
   overflow: hidden;
 }
 
-.about-network-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  display: block;
-}
-
 .section-content {
   max-width: 800px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .section-title {

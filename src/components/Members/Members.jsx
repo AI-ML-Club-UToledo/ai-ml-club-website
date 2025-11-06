@@ -1,87 +1,109 @@
 import React from 'react';
+import NetworkBackground from '../NetworkBackground';
 import './Members.css';
 
-function NetworkBackground() {
-  const canvasRef = React.useRef(null);
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = canvas.offsetWidth;
-    let height = canvas.height = canvas.offsetHeight;
-    const resize = () => {
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
-    };
-    window.addEventListener('resize', resize);
-  const N = 32;
-    const nodes = Array.from({ length: N }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      r: 2.5 + Math.random() * 1.5,
-      dx: (Math.random() - 0.5) * 0.15,
-      dy: (Math.random() - 0.5) * 0.15,
-    }));
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.save();
-      ctx.globalAlpha = 0.18;
-      for (let i = 0; i < N; i++) {
-        for (let j = i + 1; j < N; j++) {
-          const a = nodes[i], b = nodes[j];
-          const dist = Math.hypot(a.x - b.x, a.y - b.y);
-          if (dist < 160) {
-            ctx.strokeStyle = 'rgba(80,220,255,0.18)';
-            ctx.lineWidth = 1.1;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-      ctx.restore();
-      for (const node of nodes) {
-        ctx.save();
-        ctx.shadowColor = '#22e0e0';
-        ctx.shadowBlur = 8;
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.r, 0, 2 * Math.PI);
-        ctx.fillStyle = '#22e0e0';
-        ctx.globalAlpha = 0.7;
-        ctx.fill();
-        ctx.restore();
-        node.x += node.dx;
-        node.y += node.dy;
-        if (node.x < 0 || node.x > width) node.dx *= -1;
-        if (node.y < 0 || node.y > height) node.dy *= -1;
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-    return () => {
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-  return (
-    <canvas
-      ref={canvasRef}
-      className="about-network-bg"
-      aria-hidden="true"
-      tabIndex={-1}
-    />
-  );
-}
+// Eboard members data - update with actual member information
+const eboardMembers = [
+  {
+    name: 'Shubham Verma',
+    title: 'President',
+    image: '/placeholder-avatar.png', // Replace with actual image path
+    linkedin: 'https://linkedin.com/in/johndoe',
+    funFact: 'Loves building neural networks in my spare time',
+  },
+  {
+    name: 'Aayushi Goel',
+    title: 'Vice President',
+    image: '/placeholder-avatar.png',
+    linkedin: 'https://linkedin.com/in/janesmith',
+    funFact: 'Coffee enthusiast and data visualization nerd',
+  },
+  {
+    name: 'Rohit Patidar',
+    title: 'Treasurer',
+    image: '/placeholder-avatar.png',
+    linkedin: 'https://linkedin.com/in/alexjohnson',
+    funFact: 'Can solve a Rubik\'s cube in under 2 minutes',
+  },
+  {
+    name: 'Zaid Siddiqui',
+    title: 'Technical Chair',
+    image: '/placeholder-avatar.png',
+    linkedin: 'https://linkedin.com/in/sarahwilliams',
+    funFact: 'Passionate about AI ethics and responsible tech',
+  },
+  {
+    name: 'Interested in joining?',
+    title: 'Marketing Chair',
+    image: '/placeholder-avatar.png',
+    linkedin: 'https://linkedin.com/in/mikechen',
+    funFact: 'Built my first ML model at age 16',
+  },
+  {
+    name: 'Dr. Ashish Kharel',
+    title: 'Faculty Advisor',
+    image: '/placeholder-avatar.png',
+    linkedin: 'https://linkedin.com/in/emilydavis',
+    funFact: 'Organized 20+ tech events in the past year',
+  },
+];
 
 function Members() {
   return (
     <section id="members" className="section members-section">
       <NetworkBackground />
-      <div className="section-content">
-        <h2 className="section-title">Our Team</h2>
-        <p className="section-text">
-          Meet our community of researchers, developers, and AI enthusiasts 
-          working together to push the boundaries of technology.
-        </p>
+      <div className="members-container">
+        <div className="members-header">
+          <h2 className="members-title">Our Team</h2>
+          <p className="members-subtitle">
+            Meet the executive board leading our AI/ML community
+          </p>
+        </div>
+        
+        <div className="members-grid">
+          {eboardMembers.map((member, index) => (
+            <div key={index} className="member-card-wrapper">
+              <div className="member-card">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front">
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="member-image"
+                      onError={(e) => {
+                        // Fallback to a placeholder if image fails to load
+                        e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23112244" width="200" height="200"/%3E%3Ctext fill="%234ff0ff" font-family="Arial" font-size="60" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3E' + member.name.charAt(0) + '%3C/text%3E%3C/svg%3E';
+                      }}
+                    />
+                  </div>
+                  <div className="flip-card-back">
+                    <p className="fun-fact-label">Fun Fact</p>
+                    <p className="fun-fact-text">{member.funFact}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="member-info">
+                <h3 className="member-name">{member.name}</h3>
+                <p className="member-title">{member.title}</p>
+                {member.linkedin && (
+                  <a 
+                    href={member.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="member-link"
+                    aria-label={`${member.name}'s LinkedIn`}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
