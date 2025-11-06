@@ -24,8 +24,8 @@ function Header() {
           <a href="#home" className="nav-btn home-nav-btn">Home</a>
           <a href="#about" className="nav-btn">About</a>
           <a href="#events" className="nav-btn">Events</a>
-          <a href="#members" className="nav-btn">Members</a>
-          <a href="#contact" className="nav-btn">Contact</a>
+          <a href="#members" className="nav-btn">Our Team</a>
+          <a href="#contact" className="nav-btn">Contact Us</a>
         </nav>
       </div>
     </header>

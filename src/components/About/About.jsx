@@ -17,7 +17,7 @@ function NetworkBackground() {
     window.addEventListener('resize', resize);
 
     // Network nodes
-    const N = 18;
+  const N = 32;
     const nodes = Array.from({ length: N }, (_, i) => ({
       x: Math.random() * width,
       y: Math.random() * height,
