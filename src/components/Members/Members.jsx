@@ -9,14 +9,14 @@ const eboardMembers = [
     title: 'President',
     image: '/ShubhamVerma.jpeg',
     linkedin: 'https://www.linkedin.com/in/shubham-verma-cse/',
-    funFact: 'Loves building neural networks in my spare time',
+    funFact: 'Loves playing with hardware and building drones in his free time',
   },
   {
     name: 'Aayushi Goel',
     title: 'Vice President',
     image: '/AayushiGoel.jpeg',
     linkedin: 'https://www.linkedin.com/in/aayushi-goel0702/',
-    funFact: 'Coffee enthusiast and data visualization nerd',
+    funFact: 'Won the AWS Deepracer Workshop',
   },
   {
     name: 'Rohit Patidar',
@@ -30,7 +30,7 @@ const eboardMembers = [
     title: 'Technical Chair',
     image: '/ZaidSiddiqui.jpeg',
     linkedin: 'https://www.linkedin.com/in/zaid-siddiqui-22a1a52b7/',
-    funFact: 'Passionate about AI ethics and responsible tech',
+    funFact: 'Once scored a half line volley goal in football',
   },
   {
     name: 'Interested?',
