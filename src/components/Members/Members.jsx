@@ -37,7 +37,7 @@ const eboardMembers = [
     title: 'Marketing Chair',
     image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23112244" width="200" height="200"/%3E%3Ctext fill="%234ff0ff" font-family="Arial" font-size="100" font-weight="bold" x="50%25" y="50%25" text-anchor="middle" dy=".35em"%3E?%3C/text%3E%3C/svg%3E',
     linkedin: 'https://linkedin.com/in/mikechen',
-    funFact: 'Built my first ML model at age 16',
+    funFact: 'Join us by reaching out!',
   },
   {
     name: 'Dr. Ashish Kharel',
