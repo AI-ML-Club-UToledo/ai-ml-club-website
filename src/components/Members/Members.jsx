@@ -7,7 +7,7 @@ const eboardMembers = [
   {
     name: 'Shubham Verma',
     title: 'President',
-    image: '/placeholder-avatar.png', // Replace with actual image path
+    image: '/ShubhamVerma.jpeg',
     linkedin: 'https://www.linkedin.com/in/shubham-verma-cse/',
     funFact: 'Loves building neural networks in my spare time',
   },
