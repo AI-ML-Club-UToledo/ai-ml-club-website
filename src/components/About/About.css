@@ -6,7 +6,7 @@
   padding: 4rem 2rem;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  background: linear-gradient(135deg, #0a1833 0%, #112a4c 100%);
+  background: transparent;
   position: relative;
   overflow: hidden;
 }
