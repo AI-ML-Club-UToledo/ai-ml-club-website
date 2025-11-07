@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ClubStats from './ClubStats'
 import './Homescreen.css'
 
 function Homescreen() {
@@ -58,18 +59,21 @@ function Homescreen() {
       <video className="bg-video" autoPlay muted loop playsInline>
         <source src="/background.mp4" type="video/mp4" />
       </video>
-      <h1 className="homescreen-text" aria-live="polite">
-        {completed.map((w, i) => (
-          <span key={`c-${i}`} className="completed-word">
-            {w}
-            {i < words.length - 1 ? ' ' : ''}
-          </span>
-        ))}
+      <div className="homescreen-content">
+        <h1 className="homescreen-text" aria-live="polite">
+          {completed.map((w, i) => (
+            <span key={`c-${i}`} className="completed-word">
+              {w}
+              {i < words.length - 1 ? ' ' : ''}
+            </span>
+          ))}
 
-        <span className={`typing-word ${isTyping ? 'typing' : ''}`}>{typingText}</span>
-        {/* caret shown only while typing */}
-        {isTyping && <span className="typing-caret" aria-hidden="true" />}
-      </h1>
+          <span className={`typing-word ${isTyping ? 'typing' : ''}`}>{typingText}</span>
+          {/* caret shown only while typing */}
+          {isTyping && <span className="typing-caret" aria-hidden="true" />}
+        </h1>
+        <ClubStats />
+      </div>
     </div>
   )
 }
