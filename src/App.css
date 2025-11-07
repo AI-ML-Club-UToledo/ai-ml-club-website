@@ -31,4 +31,7 @@ body {
 main {
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, #0a1833 0%, #1e3a5f 50%, #2d1b4e 100%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
 }
