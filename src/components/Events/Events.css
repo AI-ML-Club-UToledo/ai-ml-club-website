@@ -20,20 +20,11 @@
 
 .events-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  margin-bottom: 1rem;
-  margin-top: 4rem;
+  margin-bottom: 2rem;
+  margin-top: 5.5rem; /* nudged up slightly from 5rem */
   gap: 2rem;
-}
-
-.section-title {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.3rem;
 }
 
 .events-toggle {
@@ -47,7 +38,7 @@
   color: #cbd5e1;
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 24px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -56,25 +47,28 @@
 }
 
 .toggle-btn:hover {
-  background: rgba(96, 165, 250, 0.1);
-  border-color: rgba(96, 165, 250, 0.3);
-  color: #60a5fa;
+  background: rgba(167, 139, 250, 0.1);
+  border-color: rgba(167, 139, 250, 0.3);
+  color: #a78bfa;
 }
 
 .toggle-btn.active {
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
   color: #ffffff;
-  border-color: #60a5fa;
-  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  border-color: #a78bfa;
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
 }
 
 .events-content {
   width: 100%;
+  /* Keep a consistent vertical space so switching tabs doesn't shift layout */
+  min-height: 520px;
 }
 
 .events-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -88,16 +82,18 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-width: 600px;
+  width: 100%;
 }
 
 .event-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(96, 165, 250, 0.5);
-  box-shadow: 0 8px 20px rgba(96, 165, 250, 0.2);
+  border-color: rgba(167, 139, 250, 0.5);
+  box-shadow: 0 8px 20px rgba(167, 139, 250, 0.2);
 }
 
 .event-card.upcoming {
-  border-left: 4px solid #60a5fa;
+  border-left: 4px solid #a78bfa;
 }
 
 .event-card.past {
@@ -121,7 +117,7 @@
 }
 
 .event-badge {
-  background: #60a5fa;
+  background: #a78bfa; /* switched from blue to purple */
   color: #0a1833;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
@@ -160,7 +156,7 @@
 }
 
 .event-register-btn {
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
   color: #ffffff;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -170,18 +166,15 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 0.5rem;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .event-register-btn:hover {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
-}
-
-.event-register-btn:hover {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
 }
 
 /* Past Events Grid Styles */
@@ -199,6 +192,7 @@
   justify-content: center;
   gap: 2rem;
 }
+
 
 .past-event-card-large {
   position: relative;
@@ -318,11 +312,13 @@
 }
 
 .carousel-prev {
-  left: -80px;
+  /* Moved closer to the image from -80px */
+  left: 20px;
 }
 
 .carousel-next {
-  right: -80px;
+  /* Moved closer to the image from -80px */
+  right: 20px;
 }
 
 .carousel-dots {
@@ -482,6 +478,30 @@
   object-position: center center;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* Directional slide animations */
+.slide-forward {
+  animation: slideInFromRight 0.35s cubic-bezier(.33,.9,.25,1) forwards;
+}
+
+.slide-back {
+  animation: slideInFromLeft 0.35s cubic-bezier(.33,.9,.25,1) forwards;
+}
+
+@keyframes slideInFromRight {
+  0% { opacity: 0; transform: translateX(32px) scale(.985); filter: brightness(.9) blur(1.5px); }
+  55% { opacity: .75; transform: translateX(8px) scale(.998); filter: brightness(.96) blur(.6px); }
+  90% { opacity: 1; transform: translateX(0) scale(1); filter: brightness(1) blur(.15px); }
+  100% { opacity: 1; transform: translateX(0) scale(1); filter: brightness(1) blur(0); }
+}
+
+@keyframes slideInFromLeft {
+  0% { opacity: 0; transform: translateX(-32px) scale(.985); filter: brightness(.9) blur(1.5px); }
+  55% { opacity: .75; transform: translateX(-8px) scale(.998); filter: brightness(.96) blur(.6px); }
+  90% { opacity: 1; transform: translateX(0) scale(1); filter: brightness(1) blur(.15px); }
+  100% { opacity: 1; transform: translateX(0) scale(1); filter: brightness(1) blur(0); }
 }
 
 .gallery-info {
@@ -533,11 +553,13 @@
 }
 
 .gallery-prev {
-  left: 4rem;
+  /* Bring gallery arrows closer (was 4rem → 1.5rem) */
+  left: 300px;
 }
 
 .gallery-next {
-  right: 4rem;
+  /* Bring gallery arrows closer (was 4rem → 1.5rem) */
+  right: 300px;
 }
 
 .gallery-thumbnails {

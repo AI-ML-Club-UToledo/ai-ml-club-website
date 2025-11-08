@@ -2,36 +2,36 @@ import React, { useState } from 'react';
 import NetworkBackground from '../NetworkBackground';
 import './Events.css';
 
+// Auto-import AWS event photos from assets (Vite glob)
+const awsModules = import.meta.glob('/src/assets/events/aws/*.{png,jpg,jpeg,gif,webp}', { eager: true });
+const awsImages = Object.entries(awsModules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, mod]) => mod.default);
+const awsCover = awsImages[0] || '/images/events/aws1.jpg';
+
+// Auto-import HalloweEngineering event photos from assets
+const halloweenModules = import.meta.glob('/src/assets/events/halloweengineering/*.{png,jpg,jpeg,gif,webp}', { eager: true });
+const halloweenImages = Object.entries(halloweenModules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, mod]) => mod.default);
+const halloweenCover = halloweenImages[0] || 'https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=800&q=80';
+
 function Events() {
   const [activeTab, setActiveTab] = useState('upcoming');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const [photoDirection, setPhotoDirection] = useState('forward'); // 'forward' or 'back'
   const [currentEventIndex, setCurrentEventIndex] = useState(0);
 
   const upcomingEvents = [
     {
       id: 1,
-      title: "Machine Learning Workshop",
-      date: "November 15, 2025",
-      time: "10:00 PM - 5:00 PM",
-      location: "SU, Ingman Room",
-      description: "Hands-on workshop covering the fundamentals of machine learning with Python and scikit-learn."
-    },
-    {
-      id: 2,
-      title: "AI Ethics Panel Discussion",
-      date: "November 22, 2025",
-      time: "3:00 PM - 4:30 PM",
-      location: "Student Union, Auditorium",
-      description: "Join experts as they discuss the ethical implications of AI in modern society."
-    },
-    {
-      id: 3,
-      title: "Deep Learning Hackathon",
-      date: "December 5, 2025",
-      time: "10:00 AM - 6:00 PM",
-      location: "Computer Science Lab",
-      description: "24-hour hackathon focused on building deep learning projects. Prizes for top teams!"
+      title: "Curiosity to Code: Your First Step into AI/ML",
+      date: "November 18, 2025",
+      time: "5:00 PM - 7:00 PM",
+      location: "Nitschke Hall Brady Center",
+      description: "Every innovation starts with curiosity. Join the AI/ML Club as we explore the fundamentals of Artificial Intelligence and Machine Learning in an interactive, beginner-friendly workshop. Learn how machines learn, where AI is used, and how you can start building your own projects.",
+      registerLink: "https://invonet.utoledo.edu/event/11848634"
     }
   ];
 
@@ -42,40 +42,27 @@ function Events() {
       date: "February 8, 2025",
       location: "SU Ingman Room",
       description: "Hands-on session exploring how AI powers autonomous racing through machine learning.",
-      coverImage: "/images/events/aws1.jpg",
-      photos: [
-        "/images/events/aws1.jpg",
-        "/images/events/aws2.jpg",
-        "/images/events/aws4.jpg",
-        "/images/events/aws3.jpg"
-      ]
+      coverImage: awsCover,
+      photos: awsImages.length ? awsImages : [awsCover]
     },
     {
       id: 2,
-      title: "Python for Data Science",
-      date: "September 20, 2025",
-      location: "Library, Computer Lab",
-      description: "Workshop covering NumPy, Pandas, and Matplotlib for data analysis.",
-      coverImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80",
-      photos: [
-        "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&q=80",
-        "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&q=80",
-        "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&q=80",
-        "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=1200&q=80"
-      ]
+      title: "UTEC HalloweEngineering",
+      date: "October 22-24, 2025",
+      location: "Nitschke Hall",
+      description: "A Halloween-themed outreach event featuring fun, hands-on STEM activities for middle and high-school students.",
+      coverImage: halloweenCover,
+      photos: halloweenImages.length ? halloweenImages : [halloweenCover]
     },
     {
       id: 3,
-      title: "AI Industry Career Fair",
-      date: "September 5, 2025",
-      location: "Student Union",
-      description: "Meet with industry professionals and learn about career opportunities in AI/ML.",
+      title: "Coming Soon",
+      date: "TBD",
+      location: "TBD",
+      description: "Details for our next past event will be added soon.",
       coverImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
       photos: [
-        "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
-        "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&q=80",
-        "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&q=80",
-        "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&q=80"
+        "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80"
       ]
     }
   ];
@@ -83,6 +70,7 @@ function Events() {
   const openGallery = (event) => {
     setSelectedEvent(event);
     setCurrentPhotoIndex(0);
+    setPhotoDirection('forward');
   };
 
   const closeGallery = () => {
@@ -92,6 +80,7 @@ function Events() {
 
   const nextPhoto = () => {
     if (selectedEvent) {
+      setPhotoDirection('forward');
       setCurrentPhotoIndex((prev) => 
         prev === selectedEvent.photos.length - 1 ? 0 : prev + 1
       );
@@ -100,6 +89,7 @@ function Events() {
 
   const prevPhoto = () => {
     if (selectedEvent) {
+      setPhotoDirection('back');
       setCurrentPhotoIndex((prev) => 
         prev === 0 ? selectedEvent.photos.length - 1 : prev - 1
       );
@@ -136,7 +126,6 @@ function Events() {
       <NetworkBackground />
       <div className="events-container">
         <div className="events-header">
-          <h2 className="section-title">Events</h2>
           <div className="events-toggle">
             <button 
               className={`toggle-btn ${activeTab === 'past' ? 'active' : ''}`}
@@ -168,7 +157,14 @@ function Events() {
                     <p className="event-location">📍 {event.location}</p>
                   </div>
                   <p className="event-description">{event.description}</p>
-                  <button className="event-register-btn">Register Now</button>
+                  <a 
+                    href={event.registerLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="event-register-btn"
+                  >
+                    Register Now
+                  </a>
                 </div>
               ))}
             </div>
@@ -225,9 +221,10 @@ function Events() {
           
           <div className="gallery-content" onClick={(e) => e.stopPropagation()}>
             <img 
+              key={`gallery-photo-${selectedEvent.id}-${currentPhotoIndex}-${photoDirection}`}
               src={selectedEvent.photos[currentPhotoIndex]} 
               alt={`${selectedEvent.title} - Photo ${currentPhotoIndex + 1}`}
-              className="gallery-image"
+              className={`gallery-image slide-${photoDirection}`}
             />
             
             <div className="gallery-info">
@@ -245,7 +242,11 @@ function Events() {
                   src={photo}
                   alt={`Thumbnail ${index + 1}`}
                   className={`gallery-thumbnail ${index === currentPhotoIndex ? 'active' : ''}`}
-                  onClick={() => setCurrentPhotoIndex(index)}
+                  onClick={() => {
+                    if (index === currentPhotoIndex) return;
+                    setPhotoDirection(index > currentPhotoIndex ? 'forward' : 'back');
+                    setCurrentPhotoIndex(index);
+                  }}
                 />
               ))}
             </div>
