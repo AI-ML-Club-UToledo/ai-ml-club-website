@@ -32,22 +32,9 @@ function About() {
                   <path d="M8 12H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <h4 className="card-title">Learn & Explore</h4>
+              <h4 className="card-title">Workshops</h4>
               <p className="card-description">
-                Hands-on workshops and tutorials to master AI and ML concepts from fundamentals to advanced techniques.
-              </p>
-            </div>
-            
-            <div className="what-we-do-card">
-              <div className="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14.7 6.3C15.1 5.9 15.1 5.3 14.7 4.9L13.8 4C13.4 3.6 12.8 3.6 12.4 4L4 12.4V16H7.6L16 7.6L14.7 6.3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M20 20H4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <h4 className="card-title">Build & Create</h4>
-              <p className="card-description">
-                Collaborative projects and innovative solutions that solve real-world problems using AI/ML technologies.
+                Hands-on workshops and interactive sessions to master AI and ML concepts from fundamentals to advanced techniques.
               </p>
             </div>
             
@@ -60,9 +47,22 @@ function About() {
                   <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <h4 className="card-title">Connect & Grow</h4>
+              <h4 className="card-title">Collab with Tech Companies</h4>
               <p className="card-description">
-                Join a vibrant community, network with peers, and grow through shared knowledge and experiences.
+                Partner with leading tech companies to gain real-world experience, industry insights, and networking opportunities.
+              </p>
+            </div>
+            
+            <div className="what-we-do-card">
+              <div className="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14.7 6.3C15.1 5.9 15.1 5.3 14.7 4.9L13.8 4C13.4 3.6 12.8 3.6 12.4 4L4 12.4V16H7.6L16 7.6L14.7 6.3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M20 20H4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <h4 className="card-title">AI Projects</h4>
+              <p className="card-description">
+                Build innovative AI projects and solutions that solve real-world problems using cutting-edge machine learning technologies.
               </p>
             </div>
           </div>
