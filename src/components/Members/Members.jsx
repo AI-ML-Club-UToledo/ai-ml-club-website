@@ -1,5 +1,10 @@
 import NetworkBackground from '../NetworkBackground';
 import './Members.css';
+import ShubhamVerma from '../../assets/team/ShubhamVerma.jpeg';
+import AayushiGoel from '../../assets/team/AayushiGoel.jpeg';
+import RohitPatidar from '../../assets/team/RohitPatidar.jpeg';
+import ZaidSiddiqui from '../../assets/team/ZaidSiddiqui.jpeg';
+import AshishKharel from '../../assets/team/AshishKharel.jpeg';
 
 const getPlaceholderImage = (name) => 
   `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23112244" width="200" height="200"/%3E%3Ctext fill="%234ff0ff" font-family="Arial" font-size="60" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3E${name.charAt(0)}%3C/text%3E%3C/svg%3E`;
@@ -12,28 +17,28 @@ const eboardMembers = [
   {
     name: 'Shubham Verma',
     title: 'President',
-    image: '/ShubhamVerma.jpeg',
+    image: ShubhamVerma,
     linkedin: 'https://www.linkedin.com/in/shubham-verma-cse/',
     funFact: 'Loves playing with hardware and building drones in his free time',
   },
   {
     name: 'Aayushi Goel',
     title: 'Vice President',
-    image: '/AayushiGoel.jpeg',
+    image: AayushiGoel,
     linkedin: 'https://www.linkedin.com/in/aayushi-goel0702/',
     funFact: 'Won the AWS Deepracer Workshop',
   },
   {
     name: 'Rohit Patidar',
     title: 'Treasurer',
-    image: '/RohitPatidar.jpeg',
+    image: RohitPatidar,
     linkedin: 'https://www.linkedin.com/in/rohit-patidar1504/',
     funFact: 'Can solve a Rubik\'s cube in under 2 minutes',
   },
   {
     name: 'Zaid Siddiqui',
     title: 'Technical Chair',
-    image: '/ZaidSiddiqui.jpeg',
+    image: ZaidSiddiqui,
     linkedin: 'https://www.linkedin.com/in/zaid-siddiqui-22a1a52b7/',
     funFact: 'Once scored a half line volley goal in football',
   },
@@ -47,7 +52,7 @@ const eboardMembers = [
   {
     name: 'Dr. Ashish Kharel',
     title: 'Faculty Advisor',
-    image: '/AshishKharel.jpeg',
+    image: AshishKharel,
     linkedin: 'https://www.linkedin.com/in/ashish-kharel/',
     funFact: 'Organized 20+ tech events in the past year',
   },
