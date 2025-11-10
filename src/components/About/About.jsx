@@ -1,4 +1,3 @@
-import React from 'react';
 import NetworkBackground from '../NetworkBackground';
 import './About.css';
 

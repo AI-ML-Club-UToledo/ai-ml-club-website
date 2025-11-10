@@ -74,6 +74,7 @@
   position: relative;
   z-index: 2;
 }
+.contact-icon,
 .contact-btn > svg {
   flex-shrink: 0;
   margin-right: 0.7em;
@@ -147,7 +148,7 @@
   }
 }
 
-.section-title {
+.contact-section .section-title {
   font-size: 3rem;
   font-weight: 700;
   color: #ffffff;
@@ -156,20 +157,9 @@
   letter-spacing: 0.3rem;
 }
 
-.section-text {
-  font-size: 1.25rem;
-  color: #cbd5e1;
-  line-height: 1.8;
-}
-
 @media (max-width: 768px) {
-  .section-title {
+  .contact-section .section-title {
     font-size: 2rem;
     letter-spacing: 0.2rem;
   }
-  
-  .section-text {
-    font-size: 1rem;
-  }
 }
-

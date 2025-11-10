@@ -1,4 +1,14 @@
-import './Header.css'
+import './Header.css';
+
+const scrollToHome = () => {
+  document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+};
+
+const handleKeyDown = (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    scrollToHome();
+  }
+};
 
 function Header() {
   return (
@@ -8,14 +18,10 @@ function Header() {
           <img src="/logo.png" alt="AI/ML Club Logo" className="header-logo-img" />
           <h1
             className="header-logo"
-            onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={scrollToHome}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })
-              }
-            }}
+            onKeyDown={handleKeyDown}
           >
             AI/ML Club
           </h1>
@@ -29,7 +35,7 @@ function Header() {
         </nav>
       </div>
     </header>
-  )
+  );
 }
 
 export default Header

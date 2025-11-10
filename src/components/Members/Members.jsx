@@ -1,8 +1,13 @@
-import React from 'react';
 import NetworkBackground from '../NetworkBackground';
 import './Members.css';
 
-// Eboard members data - update with actual member information
+const getPlaceholderImage = (name) => 
+  `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23112244" width="200" height="200"/%3E%3Ctext fill="%234ff0ff" font-family="Arial" font-size="60" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3E${name.charAt(0)}%3C/text%3E%3C/svg%3E`;
+
+const handleImageError = (e, name) => {
+  e.target.src = getPlaceholderImage(name);
+};
+
 const eboardMembers = [
   {
     name: 'Shubham Verma',
@@ -61,8 +66,8 @@ function Members() {
         </div>
         
         <div className="members-grid">
-          {eboardMembers.map((member, index) => (
-            <div key={index} className="member-card-wrapper">
+          {eboardMembers.map((member) => (
+            <div key={member.name} className="member-card-wrapper">
               <div className="member-card">
                 <div className="flip-card-inner">
                   <div className="flip-card-front">
@@ -70,10 +75,7 @@ function Members() {
                       src={member.image} 
                       alt={member.name}
                       className="member-image"
-                      onError={(e) => {
-                        // Fallback to a placeholder if image fails to load
-                        e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23112244" width="200" height="200"/%3E%3Ctext fill="%234ff0ff" font-family="Arial" font-size="60" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3E' + member.name.charAt(0) + '%3C/text%3E%3C/svg%3E';
-                      }}
+                      onError={(e) => handleImageError(e, member.name)}
                     />
                   </div>
                   <div className="flip-card-back">

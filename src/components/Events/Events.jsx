@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NetworkBackground from '../NetworkBackground';
 import './Events.css';
 
@@ -43,7 +43,7 @@ function Events() {
       location: "SU Ingman Room",
       description: "Hands-on session exploring how AI powers autonomous racing through machine learning.",
       coverImage: awsCover,
-      photos: awsImages.length ? awsImages : [awsCover]
+      photos: awsImages
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ function Events() {
       location: "Nitschke Hall",
       description: "A Halloween-themed outreach event featuring fun, hands-on STEM activities for middle and high-school students.",
       coverImage: halloweenCover,
-      photos: halloweenImages.length ? halloweenImages : [halloweenCover]
+      photos: halloweenImages
     },
     {
       id: 3,
@@ -78,47 +78,69 @@ function Events() {
     setCurrentPhotoIndex(0);
   };
 
+  const cycleIndex = (current, max, direction) => {
+    return direction === 'next' 
+      ? (current === max - 1 ? 0 : current + 1)
+      : (current === 0 ? max - 1 : current - 1);
+  };
+
   const nextPhoto = () => {
-    if (selectedEvent) {
-      setPhotoDirection('forward');
-      setCurrentPhotoIndex((prev) => 
-        prev === selectedEvent.photos.length - 1 ? 0 : prev + 1
-      );
-    }
+    if (!selectedEvent) return;
+    setPhotoDirection('forward');
+    setCurrentPhotoIndex((prev) => 
+      cycleIndex(prev, selectedEvent.photos.length, 'next')
+    );
   };
 
   const prevPhoto = () => {
-    if (selectedEvent) {
-      setPhotoDirection('back');
-      setCurrentPhotoIndex((prev) => 
-        prev === 0 ? selectedEvent.photos.length - 1 : prev - 1
-      );
-    }
+    if (!selectedEvent) return;
+    setPhotoDirection('back');
+    setCurrentPhotoIndex((prev) => 
+      cycleIndex(prev, selectedEvent.photos.length, 'prev')
+    );
   };
 
   const nextEvent = () => {
-    setCurrentEventIndex((prev) => 
-      prev === pastEvents.length - 1 ? 0 : prev + 1
-    );
+    setCurrentEventIndex((prev) => cycleIndex(prev, pastEvents.length, 'next'));
   };
 
   const prevEvent = () => {
-    setCurrentEventIndex((prev) => 
-      prev === 0 ? pastEvents.length - 1 : prev - 1
-    );
+    setCurrentEventIndex((prev) => cycleIndex(prev, pastEvents.length, 'prev'));
   };
 
-  const handleKeyDown = (e) => {
+
+  useEffect(() => {
     if (!selectedEvent) return;
-    if (e.key === 'ArrowRight') nextPhoto();
-    if (e.key === 'ArrowLeft') prevPhoto();
-    if (e.key === 'Escape') closeGallery();
-  };
-
-  React.useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedEvent, currentPhotoIndex]);
+    
+    const handleKey = (e) => {
+      const event = selectedEvent; // Capture current value
+      if (!event) return;
+      
+      switch (e.key) {
+        case 'ArrowRight':
+          setPhotoDirection('forward');
+          setCurrentPhotoIndex((prev) => 
+            cycleIndex(prev, event.photos.length, 'next')
+          );
+          break;
+        case 'ArrowLeft':
+          setPhotoDirection('back');
+          setCurrentPhotoIndex((prev) => 
+            cycleIndex(prev, event.photos.length, 'prev')
+          );
+          break;
+        case 'Escape':
+          setSelectedEvent(null);
+          setCurrentPhotoIndex(0);
+          break;
+        default:
+          break;
+      }
+    };
+    
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [selectedEvent]);
 
 
   return (

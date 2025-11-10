@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 html {
@@ -15,12 +14,6 @@ body {
   font-family: 'Poppins', 'Inter', Arial, sans-serif;
   background: #0a1833;
   color: #e2e8f0;
-}
-
-.screen-bg-dark {
-  background: linear-gradient(135deg, #0a1833 0%, #112a4c 100%);
-  min-height: 100vh;
-  width: 100%;
 }
 
 .app {
