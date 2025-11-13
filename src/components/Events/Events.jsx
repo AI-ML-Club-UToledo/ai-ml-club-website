@@ -166,9 +166,9 @@ function Events() {
         
         <div className="events-content">
           {activeTab === 'upcoming' && (
-            <div className="events-grid">
+            <div className="events-grid upcoming-align">
               {upcomingEvents.map(event => (
-                <div key={event.id} className="event-card upcoming">
+                <div key={event.id} className="event-card upcoming upcoming-large-card">
                   <div className="event-header">
                     <h4 className="event-title">{event.title}</h4>
                     <span className="event-badge">Upcoming</span>

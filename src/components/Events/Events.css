@@ -25,6 +25,12 @@
   margin-bottom: 2rem;
   margin-top: 5.5rem; /* nudged up slightly from 5rem */
   gap: 2rem;
+  /* Align toggle buttons with the left edge of the large past event card (700px max width) */
+  max-width: 700px;
+  width: 100%;
+  /* Center would be (100% - 700px)/2; subtract 16px to nudge left */
+  margin-left: calc((100% - 765px) / 2 - 18px);
+  margin-right: auto;
 }
 
 .events-toggle {
@@ -33,30 +39,97 @@
   flex-shrink: 0;
 }
 
+/* Minimal text-only toggle buttons with animated underline */
 .toggle-btn {
-  background: rgba(255, 255, 255, 0.05);
-  color: #cbd5e1;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.75rem 1.5rem;
-  border-radius: 24px;
-  font-size: 1rem;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
   font-weight: 600;
+  font-family: inherit; /* match site font (Poppins/Inter) */
+  color: #64748b; /* inactive slate */
   cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  letter-spacing: 0.04em;
+  transition: color 0.3s cubic-bezier(0.4,0,0.2,1);
+  outline: none;
+}
+
+.toggle-btn::after {
+  /* Solid underline (no glow fade) */
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.35rem;
+  height: 2px;
+  width: 100%;
+  background: #4ff0ff;
+  border-radius: 1px;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
 }
 
 .toggle-btn:hover {
-  background: rgba(167, 139, 250, 0.1);
-  border-color: rgba(167, 139, 250, 0.3);
-  color: #a78bfa;
+  color: #cbd5e1; /* hover light gray */
+}
+
+.toggle-btn:hover::after {
+  transform: translateX(-50%) scaleX(0.3); /* 30% underline */
 }
 
 .toggle-btn.active {
-  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-  color: #ffffff;
-  border-color: #a78bfa;
-  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
+  color: #ffffff; /* active white */
+}
+
+.toggle-btn.active::after {
+  transform: translateX(-50%) scaleX(1); /* full underline */
+  box-shadow: none; /* remove glow for solid feel */
+}
+
+/* Accessible focus state */
+.toggle-btn:focus-visible::after {
+  transform: translateX(-50%) scaleX(1);
+  box-shadow: 0 0 0 2px rgba(79,240,255,0.4);
+}
+
+/* Distinguish the two toggles subtly with tint (text only) */
+.events-toggle .toggle-btn:first-child:hover {
+  color: #bfe8f1; /* slight cyan tint */
+}
+.events-toggle .toggle-btn:last-child:hover {
+  color: #e5d9fb; /* slight violet tint */
+}
+
+.events-toggle .toggle-btn:last-child.active::after {
+  background: #a78bfa; /* solid violet accent */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle-btn,
+  .toggle-btn::after {
+    transition: none;
+  }
+}
+
+
+/* Accessibility: clear focus, reduced motion */
+.toggle-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle-btn,
+  .toggle-btn:hover,
+  .toggle-btn.active {
+    transition: none;
+    transform: none;
+  }
+  .toggle-btn::before {
+    display: none;
+  }
 }
 
 .events-content {
@@ -67,10 +140,37 @@
 
 .events-grid {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* left-align upcoming single card */
   align-items: center;
   gap: 2rem;
 }
+
+/* Constrain upcoming card row to same visual stage as past-event card and align left edge of content
+   with the start of past event text (past overlay has 3rem internal padding; upcoming card has 1.5rem). */
+.events-grid.upcoming-align {
+  max-width: 800px; /* match past-event-card-large width */
+  margin-left: calc(50% - 400px); /* align card box left; text padding matches past overlay now */
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Large upcoming card to mirror past large card footprint */
+.upcoming-large-card {
+  max-width: 800px;
+  height: 450px;
+  border-radius: 16px;
+  padding: 3rem 3rem 2.5rem; /* similar vertical rhythm to past overlay */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: flex-start;
+}
+
+/* Adjust internal spacing for larger format */
+.upcoming-large-card .event-header { margin-bottom: 0.75rem; }
+.upcoming-large-card .event-details { margin-bottom: 0.75rem; }
+.upcoming-large-card .event-description { flex: 1; }
+.upcoming-large-card .event-register-btn { align-self: flex-start; margin-top: 1rem; }
 
 .event-card {
   background: rgba(255, 255, 255, 0.05);
@@ -84,6 +184,15 @@
   gap: 1rem;
   max-width: 600px;
   width: 100%;
+}
+
+/* Override base sizing for the large upcoming variant so it truly matches the past large card (800x450) */
+.event-card.upcoming-large-card {
+  max-width: 800px; /* override the 600px from .event-card */
+  height: 450px;
+  border-radius: 16px; /* match .past-event-card-large */
+  padding: 3rem 3rem 2.5rem; /* align interior spacing with past overlay */
+  box-sizing: border-box;
 }
 
 .event-card:hover {
@@ -197,7 +306,7 @@
 .past-event-card-large {
   position: relative;
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   height: 450px;
   border-radius: 16px;
   overflow: hidden;
