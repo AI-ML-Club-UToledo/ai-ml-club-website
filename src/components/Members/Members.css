@@ -20,6 +20,10 @@
 
 .members-header {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
   margin-bottom: 2.5rem;
 }
 
@@ -27,7 +31,7 @@
   font-size: 3.5rem;
   font-weight: 600;
   color: #ffffff;
-  margin: 0 0 0.75rem 0;
+  margin: 0;
   letter-spacing: -0.02em;
   background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
   -webkit-background-clip: text;
@@ -56,6 +60,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 1.25rem;
 }
 
 .member-card {
@@ -63,7 +68,7 @@
   height: 180px;
   perspective: 1000px;
   cursor: pointer;
-  margin-bottom: 1.25rem;
+  margin: 0;
 }
 
 .flip-card-inner {
@@ -112,6 +117,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  gap: 0.75rem;
 }
 
 .member-image {
@@ -123,7 +129,7 @@
 .fun-fact-label {
   font-size: 0.7rem;
   color: #4ff0ff;
-  margin: 0 0 0.75rem 0;
+  margin: 0;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -142,13 +148,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.75rem;
 }
 
 .member-name {
   font-size: 1.15rem;
   font-weight: 600;
   color: #ffffff;
-  margin: 0 0 0.4rem 0;
+  margin: 0;
   letter-spacing: -0.01em;
 }
 
@@ -158,7 +165,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0 0 0.75rem 0;
+  margin: 0;
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -186,7 +193,8 @@
   color: #4ff0ff;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 0.5rem;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .member-link:hover {
@@ -251,10 +259,18 @@
     gap: 1.5rem;
   }
 
+  .member-card-wrapper {
+    gap: 1rem;
+  }
+  
   .member-card {
     width: 160px;
     height: 160px;
-    margin-bottom: 1rem;
+    margin: 0;
+  }
+  
+  .member-info {
+    gap: 0.75rem;
   }
   
   .member-name {
@@ -263,16 +279,17 @@
   
   .member-title {
     font-size: 0.7rem;
-    margin-bottom: 0.75rem;
+    margin: 0;
   }
   
   .flip-card-back {
     padding: 1rem;
+    gap: 0.5rem;
   }
   
   .fun-fact-label {
     font-size: 0.65rem;
-    margin-bottom: 0.5rem;
+    margin: 0;
   }
   
   .fun-fact-text {
@@ -290,10 +307,18 @@
     margin-bottom: 2rem;
   }
   
+  .member-card-wrapper {
+    gap: 0.75rem;
+  }
+  
   .member-card {
     width: 140px;
     height: 140px;
-    margin-bottom: 0.75rem;
+    margin: 0;
+  }
+  
+  .member-info {
+    gap: 0.5rem;
   }
   
   .member-name {
@@ -302,16 +327,17 @@
   
   .member-title {
     font-size: 0.65rem;
-    margin-bottom: 0.5rem;
+    margin: 0;
   }
   
   .flip-card-back {
     padding: 0.75rem;
+    gap: 0.4rem;
   }
   
   .fun-fact-label {
     font-size: 0.6rem;
-    margin-bottom: 0.4rem;
+    margin: 0;
   }
   
   .fun-fact-text {
