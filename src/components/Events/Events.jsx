@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import NetworkBackground from '../NetworkBackground';
-import './Events.css';
+import './Events.css'; 
 
 // Auto-import AWS event photos from assets (Vite glob)
 const awsModules = import.meta.glob('/src/assets/events/aws/*.{png,jpg,jpeg,gif,webp}', { eager: true });
@@ -16,28 +16,42 @@ const halloweenImages = Object.entries(halloweenModules)
   .map(([, mod]) => mod.default);
 const halloweenCover = halloweenImages[0] || 'https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=800&q=80';
 
+// Auto-import Brady Center event photos from assets
+const bradyModules = import.meta.glob('/src/assets/events/bradycenter/*.{png,jpg,jpeg,gif,webp}', { eager: true });
+const bradyImages = Object.entries(bradyModules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, mod]) => mod.default);
+console.log('Brady Images:', bradyImages.length, bradyImages);
+const bradyCover = bradyImages.length > 0 ? bradyImages[0] : 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80';
+console.log('Brady Cover:', bradyCover);
+
+// Auto-import Prompt Engineering event photos from assets
+const promptModules = import.meta.glob('/src/assets/events/promptengineering/*.{png,jpg,jpeg,gif,webp}', { eager: true });
+const promptImages = Object.entries(promptModules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, mod]) => mod.default);
+const promptCover = promptImages.length > 0 ? promptImages[0] : 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80';
+
+// Auto-import Hot Data, Cool Solutions event photos from assets
+const hotcoolModules = import.meta.glob('/src/assets/events/hotcool/*.{png,jpg,jpeg,gif,webp}', { eager: true });
+const hotcoolImages = Object.entries(hotcoolModules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, mod]) => mod.default);
+const hotcoolCover = hotcoolImages.length > 0 ? hotcoolImages[0] : 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80';
+
 function Events() {
   const [activeTab, setActiveTab] = useState('upcoming');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [photoDirection, setPhotoDirection] = useState('forward'); // 'forward' or 'back'
   const [currentEventIndex, setCurrentEventIndex] = useState(0);
+  const [carouselDirection, setCarouselDirection] = useState('forward');
 
-  const upcomingEvents = [
-    {
-      id: 1,
-      title: "Curiosity to Code: Your First Step into AI/ML",
-      date: "November 18, 2025",
-      time: "5:00 PM - 7:00 PM",
-      location: "Nitschke Hall Brady Center",
-      description: "Every innovation starts with curiosity. Join the AI/ML Club as we explore the fundamentals of Artificial Intelligence and Machine Learning in an interactive, beginner-friendly workshop. Learn how machines learn, where AI is used, and how you can start building your own projects.",
-      registerLink: "https://invonet.utoledo.edu/event/11848634"
-    }
-  ];
+  const upcomingEvents = [];
 
   const pastEvents = [
     {
-      id: 1,
+      id: 4,
       title: "AWS DeepRacer Workshop",
       date: "February 8, 2025",
       location: "SU Ingman Room",
@@ -46,7 +60,7 @@ function Events() {
       photos: awsImages
     },
     {
-      id: 2,
+      id: 3,
       title: "UTEC HalloweEngineering",
       date: "October 22-24, 2025",
       location: "Nitschke Hall",
@@ -55,15 +69,31 @@ function Events() {
       photos: halloweenImages
     },
     {
-      id: 3,
-      title: "Coming Soon",
-      date: "TBD",
-      location: "TBD",
-      description: "Details for our next past event will be added soon.",
-      coverImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
-      photos: [
-        "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80"
-      ]
+      id: 2,
+      title: "Prompt Engineering Workshop",
+      date: "November 8, 2025",
+      location: "Brady Center",
+      description: "Hands-on workshop exploring effective prompt engineering techniques for AI systems, hosted during the Engineering Leadership Summit by UTEC.",
+      coverImage: promptCover,
+      photos: promptImages
+    },
+    {
+      id: 1,
+      title: "Curiosity to Code: Your First Step into AI/ML",
+      date: "November 18, 2025",
+      location: "The Brady Center",
+      description: "Interactive workshop exploring AI and Machine Learning fundamentals for beginners.",
+      coverImage: bradyCover,
+      photos: bradyImages
+    },
+    {
+      id: 5,
+      title: "Hot Data, Cool Solutions: A workshop by Dr. Anju Gupta",
+      date: "April 16th, 2026",
+      location: "NE 1300",
+      description: "A workshop bridging heat transfer fundamentals with machine learning methods, applied to the thermal limits of modern data center cooling systems.",
+      coverImage: hotcoolCover,
+      photos: hotcoolImages
     }
   ];
 
@@ -101,10 +131,12 @@ function Events() {
   };
 
   const nextEvent = () => {
+    setCarouselDirection('forward');
     setCurrentEventIndex((prev) => cycleIndex(prev, pastEvents.length, 'next'));
   };
 
   const prevEvent = () => {
+    setCarouselDirection('backward');
     setCurrentEventIndex((prev) => cycleIndex(prev, pastEvents.length, 'prev'));
   };
 
@@ -167,28 +199,35 @@ function Events() {
         <div className="events-content">
           {activeTab === 'upcoming' && (
             <div className="events-grid upcoming-align">
-              {upcomingEvents.map(event => (
-                <div key={event.id} className="event-card upcoming upcoming-large-card">
-                  <div className="event-header">
-                    <h4 className="event-title">{event.title}</h4>
-                    <span className="event-badge">Upcoming</span>
+              {upcomingEvents.length > 0 ? (
+                upcomingEvents.map(event => (
+                  <div key={event.id} className="event-card upcoming upcoming-large-card">
+                    <div className="event-header">
+                      <h4 className="event-title">{event.title}</h4>
+                      <span className="event-badge">Upcoming</span>
+                    </div>
+                    <div className="event-details">
+                      <p className="event-date">📅 {event.date}</p>
+                      <p className="event-time">🕒 {event.time}</p>
+                      <p className="event-location">📍 {event.location}</p>
+                    </div>
+                    <p className="event-description">{event.description}</p>
+                    <a 
+                      href={event.registerLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="event-register-btn"
+                    >
+                      Register Now
+                    </a>
                   </div>
-                  <div className="event-details">
-                    <p className="event-date">📅 {event.date}</p>
-                    <p className="event-time">🕒 {event.time}</p>
-                    <p className="event-location">📍 {event.location}</p>
-                  </div>
-                  <p className="event-description">{event.description}</p>
-                  <a 
-                    href={event.registerLink} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="event-register-btn"
-                  >
-                    Register Now
-                  </a>
+                ))
+              ) : (
+                <div className="upcoming-empty-state">
+                  <h3>No events yet...</h3>
+                  <p>Stay tuned for updates and exciting workshops coming soon.</p>
                 </div>
-              ))}
+              )}
             </div>
           )}
           
@@ -199,7 +238,8 @@ function Events() {
               </button>
               
               <div 
-                className="past-event-card-large"
+                key={currentEventIndex}
+                className={`past-event-card-large slide-${carouselDirection}`}
                 onClick={() => openGallery(pastEvents[currentEventIndex])}
                 style={{ backgroundImage: `url(${pastEvents[currentEventIndex].coverImage})` }}
               >

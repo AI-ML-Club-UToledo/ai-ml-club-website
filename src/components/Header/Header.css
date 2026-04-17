@@ -1,13 +1,25 @@
 .header {
   width: 100%;
-  padding: 1.5rem 2rem;
-  /* make header transparent so the video shows through */
-  background: transparent;
-  backdrop-filter: none;
-  border-bottom: none;
-  position: sticky;
+  padding: 0.6rem 1.5rem;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.46) 0%, rgba(15, 23, 42, 0.2) 60%, rgba(15, 23, 42, 0) 100%);
+  backdrop-filter: blur(8px) saturate(135%);
+  -webkit-backdrop-filter: blur(8px) saturate(135%);
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.65), transparent);
 }
 
 .header-container {
@@ -16,6 +28,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .header-logo-container {
@@ -25,13 +39,13 @@
 }
 
 .header-logo-img {
-  height: 4rem;
+  height: 3.1rem;
   width: auto;
   object-fit: contain;
 }
 
 .header-logo {
-  font-size: 1.75rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: white;
   margin: 0;
@@ -46,57 +60,121 @@
 
 .header-nav {
   display: flex;
-  gap: 2rem;
+  gap: 1.2rem;
   align-items: center;
 }
 
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.28rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(96, 165, 250, 0.28);
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.22);
+  cursor: pointer;
+  padding: 0.45rem;
+}
+
+.menu-toggle span {
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: #f8fafc;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.menu-toggle.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
 .nav-btn {
-  font-weight: 700;
-  color: #4ff0ff;
-  text-shadow: 0 0 8px rgba(80,220,255,0.18);
-  border-radius: 6px;
-  padding: 0.3em 1em;
-  background: rgba(0,0,0,0.04);
-  transition: background 0.2s, color 0.2s, transform 0.13s;
+  color: #f8fafc;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 5px;
+  padding: 0.3rem 0.7rem;
+  background: rgba(15, 23, 42, 0.18);
+  border: 1px solid transparent;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.13s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   position: relative;
 }
+
 .nav-btn:active {
-  transform: scale(0.96);
-  background: rgba(80,220,255,0.13);
+  transform: scale(0.97);
 }
+
 .nav-btn:hover {
-  background: rgba(80,220,255,0.08);
-  color: #22e0e0;
+  color: #e0f2fe;
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(96, 165, 250, 0.35);
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.12);
 }
 
 .header-nav a {
-  color: white;
+  color: inherit;
   text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.3s ease;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-}
-
-.header-nav a:hover {
-  opacity: 0.8;
 }
 
 @media (max-width: 768px) {
   .header {
-    padding: 1rem 1.5rem;
+    padding: 0.65rem 1rem;
+  }
+
+  .header-logo-container {
+    gap: 0.55rem;
   }
   
   .header-logo-img {
-    height: 3rem;
+    height: 2.5rem;
   }
   
   .header-logo {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .menu-toggle {
+    display: flex;
   }
   
   .header-nav {
-    gap: 1rem;
+    position: absolute;
+    top: calc(100% + 0.65rem);
+    right: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    border-radius: 12px;
+    background: rgba(8, 15, 30, 0.94);
+    border: 1px solid rgba(96, 165, 250, 0.22);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
     font-size: 0.9rem;
+  }
+
+  .header-nav.nav-open {
+    display: flex;
+  }
+
+  .nav-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
   }
 }
 

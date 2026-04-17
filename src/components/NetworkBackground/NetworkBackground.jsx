@@ -7,27 +7,43 @@ function NetworkBackground() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
     const updateSize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     };
     updateSize();
 
-    const N = 32;
-    const LINK_DISTANCE = 160;
-    const nodes = Array.from({ length: N }, () => ({
+    const getConfig = (width) => {
+      if (width <= 480) {
+        return { count: 16, linkDistance: 90, speed: 0.1 };
+      }
+      if (width <= 768) {
+        return { count: 22, linkDistance: 120, speed: 0.12 };
+      }
+      return { count: 32, linkDistance: 160, speed: 0.15 };
+    };
+
+    const buildNodes = (config) => Array.from({ length: config.count }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: 2.5 + Math.random() * 1.5,
-      dx: (Math.random() - 0.5) * 0.15,
-      dy: (Math.random() - 0.5) * 0.15,
+      r: 2.2 + Math.random() * 1.4,
+      dx: (Math.random() - 0.5) * config.speed,
+      dy: (Math.random() - 0.5) * config.speed,
     }));
+
+    let config = getConfig(canvas.width);
+    let nodes = buildNodes(config);
+
+    let frameId = null;
+    let isVisible = false;
 
     const drawLink = (a, b) => {
       const dist = Math.hypot(a.x - b.x, a.y - b.y);
-      if (dist < LINK_DISTANCE) {
+      if (dist < config.linkDistance) {
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -49,21 +65,24 @@ function NetworkBackground() {
     };
 
     const animate = () => {
+      if (!isVisible || document.hidden) {
+        frameId = null;
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Draw links
+
       ctx.save();
       ctx.globalAlpha = 0.18;
       ctx.strokeStyle = 'rgba(80,220,255,0.18)';
       ctx.lineWidth = 1.1;
-      for (let i = 0; i < N; i++) {
-        for (let j = i + 1; j < N; j++) {
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
           drawLink(nodes[i], nodes[j]);
         }
       }
       ctx.restore();
-      
-      // Draw nodes
+
       ctx.save();
       ctx.shadowColor = '#22e0e0';
       ctx.shadowBlur = 8;
@@ -71,27 +90,62 @@ function NetworkBackground() {
       ctx.globalAlpha = 0.7;
       nodes.forEach(drawNode);
       ctx.restore();
-      
-      // Update positions
+
       nodes.forEach(updateNode);
-      
-      requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
+    };
+
+    const startAnimation = () => {
+      if (frameId == null) {
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+
+    const stopAnimation = () => {
+      if (frameId != null) {
+        cancelAnimationFrame(frameId);
+        frameId = null;
+      }
     };
 
     const handleResize = () => {
       updateSize();
-      // Reposition nodes if canvas size changed significantly
-      nodes.forEach(node => {
-        if (node.x > canvas.width) node.x = canvas.width;
-        if (node.y > canvas.height) node.y = canvas.height;
-      });
+      config = getConfig(canvas.width);
+      nodes = buildNodes(config);
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopAnimation();
+      } else if (isVisible) {
+        startAnimation();
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      {
+        threshold: 0.05,
+        rootMargin: '120px 0px',
+      }
+    );
+
     window.addEventListener('resize', handleResize);
-    animate();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    observer.observe(canvas.parentElement || canvas);
 
     return () => {
+      stopAnimation();
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 

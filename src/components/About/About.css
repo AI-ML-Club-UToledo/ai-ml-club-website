@@ -4,8 +4,6 @@
   justify-content: center;
   min-height: 100vh;
   padding: 2rem 2rem;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   background: transparent;
   position: relative;
   overflow: hidden;
@@ -35,15 +33,32 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.4rem;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 95px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4ff0ff 0%, #a78bfa 100%);
+  box-shadow: 0 0 14px rgba(79, 240, 255, 0.2);
 }
 
 .section-text {
-  font-size: 0.9rem;
-  color: #94a3b8;
-  line-height: 1.6;
-  margin: 0 0 0.75rem 0;
-  max-width: 800px;
+  font-size: 1rem;
+  color: #cbd5e1;
+  line-height: 1.8;
+  margin: 0 0 0.9rem 0;
+  max-width: 840px;
   font-weight: 400;
+  text-shadow: 0 1px 10px rgba(2, 8, 23, 0.18);
 }
 
 .join-btn {
@@ -107,6 +122,22 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.75rem;
+}
+
+.what-we-do-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 72px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4ff0ff 0%, #a78bfa 100%);
+  box-shadow: 0 0 12px rgba(79, 240, 255, 0.18);
 }
 
 .what-we-do-cards {
@@ -227,12 +258,14 @@
 
 @media (max-width: 768px) {
   .about-section {
-    padding: 1.5rem 1.5rem;
+    align-items: center;
+    padding: 1.5rem 1.5rem 2rem;
+    scroll-margin-top: 4.5rem;
   }
 
   .section-content {
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.25rem;
   }
 
   .section-title {

@@ -4,11 +4,10 @@
   justify-content: center;
   min-height: 100vh;
   padding: 2rem 2rem;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   background: transparent;
   position: relative;
   overflow-y: auto;
+  overflow-x: clip;
 }
 
 .events-container {
@@ -20,23 +19,20 @@
 
 .events-header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
-  margin-top: 5.5rem; /* nudged up slightly from 5rem */
-  gap: 2rem;
-  /* Align toggle buttons with the left edge of the large past event card (700px max width) */
-  max-width: 700px;
+  margin: 4.75rem auto 1.5rem;
+  gap: 1rem;
+  max-width: 100%;
   width: 100%;
-  /* Center would be (100% - 700px)/2; subtract 16px to nudge left */
-  margin-left: calc((100% - 765px) / 2 - 18px);
-  margin-right: auto;
 }
 
 .events-toggle {
   display: flex;
   gap: 1rem;
   flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Minimal text-only toggle buttons with animated underline */
@@ -44,8 +40,8 @@
   position: relative;
   background: none;
   border: none;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
+  padding: 0.8rem 1.35rem;
+  font-size: 1rem;
   font-weight: 600;
   font-family: inherit; /* match site font (Poppins/Inter) */
   color: #64748b; /* inactive slate */
@@ -102,8 +98,14 @@
   color: #e5d9fb; /* slight violet tint */
 }
 
+.events-toggle .toggle-btn:last-child:hover::after {
+  background: #a78bfa;
+  transform: translateX(-50%) scaleX(0.3);
+}
+
 .events-toggle .toggle-btn:last-child.active::after {
   background: #a78bfa; /* solid violet accent */
+  transform: translateX(-50%) scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -134,23 +136,20 @@
 
 .events-content {
   width: 100%;
-  /* Keep a consistent vertical space so switching tabs doesn't shift layout */
   min-height: 520px;
+  overflow-x: clip;
 }
 
 .events-grid {
   display: flex;
-  justify-content: flex-start; /* left-align upcoming single card */
+  justify-content: center;
   align-items: center;
   gap: 2rem;
 }
 
-/* Constrain upcoming card row to same visual stage as past-event card and align left edge of content
-   with the start of past event text (past overlay has 3rem internal padding; upcoming card has 1.5rem). */
 .events-grid.upcoming-align {
-  max-width: 800px; /* match past-event-card-large width */
-  margin-left: calc(50% - 400px); /* align card box left; text padding matches past overlay now */
-  margin-right: auto;
+  max-width: 800px;
+  margin: 0 auto;
   width: 100%;
 }
 
@@ -223,6 +222,36 @@
   color: #ffffff;
   margin: 0;
   flex: 1;
+}
+
+.upcoming-empty-state {
+  width: 100%;
+  max-width: 800px;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(10, 24, 51, 0.92) 0%, rgba(30, 58, 95, 0.88) 52%, rgba(45, 27, 78, 0.9) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(167, 139, 250, 0.22);
+  box-shadow: 0 10px 26px rgba(2, 8, 23, 0.24), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+}
+
+.upcoming-empty-state h3 {
+  margin: 0 0 0.6rem 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.upcoming-empty-state p {
+  margin: 0;
+  font-size: 1rem;
+  color: #cbd5e1;
+  line-height: 1.6;
 }
 
 .event-badge {
@@ -300,6 +329,7 @@
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  overflow-x: clip;
 }
 
 
@@ -313,8 +343,38 @@
   cursor: pointer;
   background-size: cover;
   background-position: center;
-  transition: all 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.past-event-card-large.slide-forward {
+  animation: slideInFromRight 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.past-event-card-large.slide-backward {
+  animation: slideInFromLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(48px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-48px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .past-event-card-large::before {
@@ -410,6 +470,17 @@
   text-shadow: 0 0 20px rgba(96, 165, 250, 0.8),
                0 0 40px rgba(96, 165, 250, 0.6);
   font-weight: bold;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.carousel-nav:focus,
+.carousel-nav:focus-visible,
+.carousel-nav:active {
+  outline: none;
+  box-shadow: none;
 }
 
 .carousel-nav:hover {
@@ -705,13 +776,15 @@
 
 @media (max-width: 768px) {
   .events-section {
-    padding: 3rem 1rem;
+    padding: 2.25rem 1rem;
   }
 
   .events-header {
     flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 2rem;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem auto 1.5rem;
+    gap: 0.75rem;
   }
 
   .section-title {
@@ -721,17 +794,33 @@
 
   .events-toggle {
     width: 100%;
+    justify-content: center;
   }
 
   .toggle-btn {
-    flex: 1;
+    flex: 1 1 45%;
+    min-width: 140px;
     padding: 0.65rem 1rem;
     font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .events-content {
+    min-height: auto;
   }
   
-  .events-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .events-grid,
+  .events-grid.upcoming-align {
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .event-card.upcoming-large-card {
+    height: auto;
+    min-height: 320px;
+    padding: 1.5rem 1.25rem;
   }
 
   .event-title {
@@ -743,53 +832,50 @@
   }
 
   .past-events-carousel {
-    flex-direction: column;
-    gap: 1rem;
+    gap: 0;
   }
 
   .past-event-card-large {
-    height: 400px;
+    height: 380px;
     max-width: 100%;
   }
 
   .past-event-overlay-large {
-    padding: 2rem;
+    padding: 1.4rem;
   }
 
   .past-event-title-large {
-    font-size: 1.75rem;
+    font-size: 1.45rem;
+    margin-bottom: 0.65rem;
   }
 
   .past-event-location-large,
   .past-event-description-large {
-    font-size: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .past-event-date-large {
+    font-size: 0.9rem;
   }
 
   .carousel-nav {
-    position: relative;
-    top: auto;
-    transform: none;
-    font-size: 3rem;
+    font-size: 2.4rem;
   }
 
   .carousel-nav:hover {
-    transform: scale(1.2);
+    transform: translateY(-50%) scale(1.1);
   }
 
   .carousel-prev {
-    left: auto;
-    order: -1;
+    left: 8px;
   }
 
   .carousel-next {
-    right: auto;
-    order: 1;
+    right: 8px;
   }
 
   .carousel-dots {
-    position: static;
-    transform: none;
-    margin-top: 1rem;
+    bottom: -1.5rem;
   }
 
   .past-event-card {

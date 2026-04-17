@@ -2,7 +2,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
   height: 100%;
 }
@@ -14,6 +13,29 @@ body {
   font-family: 'Poppins', 'Inter', Arial, sans-serif;
   background: #0a1833;
   color: #e2e8f0;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #4ff0ff rgba(10, 24, 51, 0.9);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 24, 51, 0.92);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4ff0ff 0%, #22e0e0 100%);
+  border-radius: 999px;
+  border: 2px solid rgba(10, 24, 51, 0.92);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7af7ff 0%, #4ff0ff 100%);
 }
 
 .app {

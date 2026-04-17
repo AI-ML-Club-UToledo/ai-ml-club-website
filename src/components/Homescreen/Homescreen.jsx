@@ -40,20 +40,37 @@ function Homescreen() {
   }, [completed.length]);
 
   return (
-    <div id="home" className="homescreen">
-      <video className="bg-video" autoPlay muted loop playsInline>
+    <div
+      id="home"
+      className="homescreen"
+      onContextMenu={(e) => e.preventDefault()}
+    >
+      <video className="bg-video" autoPlay muted loop playsInline draggable="false">
         <source src="/background.mp4" type="video/mp4" />
       </video>
-      <h1 className="homescreen-text" aria-live="polite">
-        {completed.map((word, index) => (
-          <span key={word} className="completed-word">
-            {word}
-            {index < completed.length - 1 ? ' ' : ''}
-          </span>
-        ))}
-        <span className={`typing-word ${isTyping ? 'typing' : ''}`}>{typingText}</span>
-        {isTyping && <span className="typing-caret" aria-hidden="true" />}
-      </h1>
+
+      <div className="hero-content">
+        <h1 className="homescreen-text" aria-live="polite">
+          {completed.map((word) => (
+            <span key={word} className="completed-word">
+              {word}
+            </span>
+          ))}
+          {(typingText || isTyping) && (
+            <span className="typing-line">
+              <span className={`typing-word ${isTyping ? 'typing' : ''}`}>{typingText}</span>
+              {isTyping && <span className="typing-caret" aria-hidden="true" />}
+            </span>
+          )}
+        </h1>
+
+        <p className="subtext">A student-led AI/ML community focused on building real-world projects, hosting workshops, and growing together.</p>
+
+        <div className="scroll-cue" aria-hidden="true">
+          <span className="scroll-arrow">↓</span>
+          <span className="scroll-label">Scroll to explore</span>
+        </div>
+      </div>
     </div>
   )
 }

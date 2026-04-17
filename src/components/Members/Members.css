@@ -1,8 +1,6 @@
 .members-section {
   min-height: 100vh;
   padding: 3rem 2rem;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   background: transparent;
   position: relative;
   overflow: hidden;
@@ -33,6 +31,22 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.2rem;
+}
+
+.members-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 25vh;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4ff0ff 0%, #a78bfa 100%);
+  box-shadow: 0 0 14px rgba(79, 240, 255, 0.2);
 }
 
 .members-subtitle {
@@ -142,28 +156,42 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .member-name {
   font-size: 1.15rem;
   font-weight: 600;
   color: #ffffff;
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.35rem 0;
   letter-spacing: -0.01em;
+  height: 3.1rem;
+  line-height: 1.25;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
 }
 
 .member-title {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   background: linear-gradient(135deg, #00f0ff 0%, #00d9ff 50%, #0099ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0 0 0.75rem 0;
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6));
   animation: titleGlow 3s ease-in-out infinite;
+  height: 1.1rem;
+  line-height: 1.1rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 @keyframes titleGlow {

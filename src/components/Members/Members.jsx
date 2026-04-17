@@ -3,7 +3,6 @@ import './Members.css';
 import ShubhamVerma from '../../assets/team/ShubhamVerma.jpeg';
 import AayushiGoel from '../../assets/team/AayushiGoel.jpeg';
 import RohitPatidar from '../../assets/team/RohitPatidar.jpeg';
-import ZaidSiddiqui from '../../assets/team/ZaidSiddiqui.jpeg';
 import AshishKharel from '../../assets/team/AshishKharel.jpeg';
 
 const getPlaceholderImage = (name) => 
@@ -36,17 +35,17 @@ const eboardMembers = [
     funFact: 'Can solve a Rubik\'s cube in under 2 minutes',
   },
   {
-    name: 'Zaid Siddiqui',
-    title: 'Technical Chair',
-    image: ZaidSiddiqui,
-    linkedin: 'https://www.linkedin.com/in/zaid-siddiqui-22a1a52b7/',
-    funFact: 'Once scored a half line volley goal in football',
+    name: 'Moustafa Ali Kashen',
+    title: 'Director of Operations',
+    image: getPlaceholderImage('Moustafa Ali Kashen'),
+    linkedin: '',
+    funFact: 'Helps keep the club running smoothly behind the scenes.',
   },
   {
-    name: 'Interested?',
+    name: 'Jai Kukreja',
     title: 'Marketing Chair',
-    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23112244" width="200" height="200"/%3E%3Ctext fill="%234ff0ff" font-family="Arial" font-size="100" font-weight="bold" x="50%25" y="50%25" text-anchor="middle" dy=".35em"%3E?%3C/text%3E%3C/svg%3E',
-    linkedin: 'https://linkedin.com/in/mikechen',
+    image: getPlaceholderImage('Jai Kukreja'),
+    linkedin: '',
     funFact: 'Join us by reaching out!',
   },
   {
