@@ -31,6 +31,33 @@ function CommunityIcon() {
   );
 }
 
+const CONTACT_CHANNELS = [
+  {
+    key: 'email',
+    label: 'Email',
+    value: 'aiml@utoledo.edu',
+    href: 'mailto:aiml@utoledo.edu',
+    Icon: EmailIcon,
+  },
+  {
+    key: 'instagram',
+    label: 'Instagram',
+    value: '@aiml_utoledo',
+    href: 'https://instagram.com/aiml_utoledo',
+    external: true,
+    Icon: InstagramIcon,
+  },
+  {
+    key: 'community',
+    label: 'Join the Club',
+    value: 'Workshops, projects, and events all semester long',
+    href: 'https://invonet.utoledo.edu/organization/ai',
+    external: true,
+    isText: true,
+    Icon: CommunityIcon,
+  },
+];
+
 function Contact() {
   return (
     <section id="contact" className="contact-section">
@@ -45,67 +72,42 @@ function Contact() {
         </div>
 
         <div className="contact-info-grid">
-          <div className="contact-info-card">
-            <div className="contact-info-icon">
-              <EmailIcon />
+          {CONTACT_CHANNELS.map(({ key, label, value, href, external, Icon, isText }) => (
+            <div className="contact-info-card" key={key}>
+              {href ? (
+                <a
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="contact-info-icon contact-info-icon-link"
+                  aria-label={`Open ${label}`}
+                >
+                  <Icon />
+                </a>
+              ) : (
+                <div className="contact-info-icon">
+                  <Icon />
+                </div>
+              )}
+              <div className="contact-info-text">
+                <span className="contact-info-label">{label}</span>
+                {isText ? (
+                  <p className="contact-info-value">{value}</p>
+                ) : (
+                  <a
+                    href={href}
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
+                    className="contact-info-value"
+                  >
+                    {value}
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="contact-info-text">
-              <span className="contact-info-label">Email</span>
-              <a href="mailto:aiml@utoledo.edu" className="contact-info-value">aiml@utoledo.edu</a>
-            </div>
-          </div>
-
-          <div className="contact-info-card">
-            <div className="contact-info-icon">
-              <InstagramIcon />
-            </div>
-            <div className="contact-info-text">
-              <span className="contact-info-label">Instagram</span>
-              <a href="https://instagram.com/aiml_utoledo" target="_blank" rel="noopener noreferrer" className="contact-info-value">@aiml_utoledo</a>
-            </div>
-          </div>
-
-          <div className="contact-info-card">
-            <div className="contact-info-icon">
-              <CommunityIcon />
-            </div>
-            <div className="contact-info-text">
-              <span className="contact-info-label">Community</span>
-              <p className="contact-info-value">Workshops, projects, and events all semester long</p>
-            </div>
-          </div>
+          ))}
         </div>
 
-        <div className="contact-btn-row">
-          <a
-            href="https://invonet.utoledo.edu/organization/ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-btn primary"
-          >
-            <CommunityIcon />
-            <span>Join the Club</span>
-          </a>
-
-          <a
-            href="mailto:aiml@utoledo.edu"
-            rel="noopener noreferrer"
-            className="contact-btn secondary"
-          >
-            <EmailIcon />
-            <span>Email Us</span>
-          </a>
-
-          <a
-            href="https://instagram.com/aiml_utoledo"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-btn secondary"
-          >
-            <InstagramIcon />
-            <span>Follow on Instagram</span>
-          </a>
-        </div>
       </div>
     </section>
   );
